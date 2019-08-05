@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.getGithubUsers();
+    getDataByName();
     this.getGithubUsersUsingFetchMethod();
   }
 
@@ -75,4 +76,46 @@ export class HomeComponent implements OnInit {
   }
   
 
+}
+
+
+function getDataByName(){
+
+  var name = "Jim";
+
+  var users = [{
+    name: "Jim",
+    url: "localhost:9000",
+    date: new Date(),
+    dob: "21 Aug 2010",
+    course: "Angular"
+  },
+  {
+    name: "Stokes",
+    url: "stokes.com",
+    date: new Date(),
+    dob: "21 Aug 2011",
+    course: "Node JS"
+  },
+  {
+    name: "Anderson",
+    url: "localhost:8000",
+    date: new Date(),
+    dob: "21 Aug 2012",
+    course: "MEAN stack"
+  },
+  {
+    name: "Jim",
+    url: "localhost:8000",
+    date: new Date(),
+    dob: "21 Aug 2012",
+    course: "MEAN stack"
+  }];
+
+  var filteredUsers = users.filter(function(el){
+    return el.name == name
+  })
+
+  console.log(filteredUsers);
+  console.log(users);
 }
