@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
+// import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
+
+interface Products {
+  id: number,
+  name: string,
+  displayName: string
+}
 
 @Component({
   selector: 'app-home',
@@ -9,70 +15,69 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-  // constructor(private homeService: HomeService) { }
+  tbHeaders = [] as any;
+  users = [] as any;
+  usersDisplay = [] as any;
   constructor(private http: HttpClient) { }
-
+  
   ngOnInit() {
-    // this.getGithubUsers();
     getDataByName();
-    this.getGithubUsersUsingFetchMethod();
+    
+    // this.getGithubUsersUsingAngular()
+    // .subscribe((response: Array<any>)=>{
+    //   this.users = response;
+    //   this.usersDisplay = response;
+    //   this.tbHeaders = this.getHeaders(response[0])
+    // });
   }
 
-  getGithubUsers() {
+  getGithubUsersUsingAngular() {
     return this.http.get("https://api.github.com/users");
   }
 
-  getGithubUsersUsingFetchMethod() {
-    fetch("https://api.github.com/users")
-    .then(function(response){
-      console.log(response);
-    });
+  query:string;
+
+  findUser(query){
+    console.log(query);
+    
+    this.usersDisplay = this.users.filter(function(el){
+      return (new RegExp(query)).test(el.login);
+    })
   }
 
-  tbHeaders = ["User name", "URL", "Date"];
-  
-  users = [{
-    name: "Jim",
-    url: "localhost:9000",
-    date: new Date(),
-    dob: "21 Aug 2010",
-    course: "Angular"
-  },
-  {
-    name: "Stokes",
-    url: "stokes.com",
-    date: new Date(),
-    dob: "21 Aug 2011",
-    course: "Node JS"
-  },
-  {
-    name: "Anderson",
-    url: "localhost:8000",
-    date: new Date(),
-    dob: "21 Aug 2012",
-    course: "MEAN stack"
-  }];
+  selectedProduct: Products;
 
-  user = {
-    name: null,
-    url: null,
-    dob: null,
-    course: null,
-    date: null
-  };
+  products = [
+    { "id": 1, "name": "one", "displayName": "One here" },
+    { "id": 2, "name": "two", "displayName": "Two Here" },
+  ]
+
+  public onProductChanged(event): void {
+    console.log(this.products.find((product: Products) => product.id == event.target.value))
+    this.selectedProduct = this.products.find((product: Products) => product.id == event.target.value);
+  }
+
+  getHeaders(obj){
+    var headers = [];
+    for(let key in obj){
+      headers.push(key)
+    }
+
+    return headers;
+  }
 
   loadAllData(user){
-    this.user = user;
+    // this.user = user;
   }
 
   closeSideBar(){
-    this.user = {
-      name: null,
-      url: null,
-      dob: null,
-      course: null,
-      date: null
-    };
+    // this.user = {
+    //   name: null,
+    //   url: null,
+    //   dob: null,
+    //   course: null,
+    //   date: null
+    // };
   }
   
 

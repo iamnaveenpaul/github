@@ -1,24 +1,32 @@
 
+<!-- <input [(ngModel)]="query" (ngModelChange)="findUser(query)" placeholder="Search for users">
+
 <table>
   
     <tr>
       <th *ngFor="let el of tbHeaders">{{el}}</th>
     </tr>
   
-    <tr *ngFor="let user of users" (click) = loadAllData(user)>
+    <tr *ngFor="let user of usersDisplay" (click) = loadAllData(user)>
       <td>
-        {{ user.name }}
+        {{ user.login }}
+      </td> -->
+      <!-- <td>
+        {{ user.id }}
       </td>
       <td>
-        {{ user.url }}
-      </td>
-      <td>
-        {{ user.date }}
+        {{ user.node_id }}
       </td>
     </tr>
-  </table>
+  </table> -->
+
+<select id="product" (change)="onProductChanged($event)">
+    <option>--- Please Select ---</option>
+    <option *ngFor="let product of products" [value]="product.id"> {{ product.displayName }} </option>
+</select>
   
-  <div class=fix-right *ngIf="user.name">
+  <!-- <div class=fix-right *ngIf="user.name">
+    
   
     <div class=text-right>
         <button (click) = closeSideBar()>Close</button>
@@ -31,6 +39,6 @@
     <p>Reg Date: {{user.date}}</p>
     <p>Course: {{user.course}}</p>
   </div>
-  
+   -->
   
 
